@@ -1,3 +1,4 @@
+import os
 import json
 import time
 
@@ -16,8 +17,7 @@ def eliminate():
     if not tasks:
         print("\nNothing to remove!! ")
         return
-    print()
-    print('=========================')    
+    print('\n=========================')    
     view_tasks()
     try:
         rem = int(input("\nEnter the task(s) you want to delete !:- "))
@@ -26,7 +26,7 @@ def eliminate():
         return
 
     if rem < 1 or rem > len(tasks):
-        print("\nIndex out of range...")
+        print(f"\nNo {rem} tasks found !!")
         return
     print("Updating...!")
     time.sleep(2)
@@ -57,7 +57,9 @@ def mark_completed():
     tasks[mark - 1]["Done"] = True 
     save_tasks()
     print("\nTask marked as completed !!") 
+    print("========================")
     view_tasks()
+
 
 def save_tasks():
     with open("tasks.json", "w") as file:
@@ -72,14 +74,49 @@ def load_tasks():
     except FileNotFoundError:
         tasks = []
 
+def clear_screen():
+    os.system("cls")
+
+
+def edit_tasks():
+    if not tasks:
+        print("\nNothing to Edit!") 
+        return
+
+    view_tasks()
+    try:
+        edit = int(input("\nEnter the task(s) you want to edit? "))
+    except ValueError:
+        print("Invalid Input ! ")
+        return
+
+    if edit < 1 or edit > len(tasks):
+        print("\nInvalid Input !! ")
+        return
+    print("current task: ", tasks[edit - 1]["task"])
+    new_task = input("\nEdit task: ").strip()
+
+    if not new_task:
+        print("\nTask can't be empty !")
+        return
+
+    tasks[edit - 1]["task"] = new_task
+    save_tasks()
+    
+    print("\nTask edited and added successfully ! \n")
+    view_tasks()
+
+
 load_tasks()
 while True:
+    clear_screen()
     print("\n-------- Welcome 2 'TO DO LIST' ----------\n")
     print("1. Add Task(s)")
     print("2. View task(s)")
-    print("3. Delete tasks")
-    print("4. Mark as completed")
-    print("5. Exit.")
+    print("3. Edit Tasks")
+    print("4. Delete tasks")
+    print("5. Mark as completed")
+    print("6. Exit.")
 
     choice = (input("\nEnter the Operator no: "))
     if choice not in ['1', '2', '3', '4', '5']:
@@ -99,22 +136,31 @@ while True:
             print("=======================")
             print("\nTask added successfully")
             print("=======================")
-            save_tasks()
+            save_tasks()         
+            input("\nPress Enter to continue...")
 
     elif choice == '2':
         print("\nLoading your tasks...\n")
-        time.sleep(3)
+        time.sleep(1.5)
         view_tasks()
- 
+        input("\nPress Enter to continue...")
+
     elif choice == '3':
-        eliminate()
+        edit_tasks()
+        input("Press Enter to continue...")
+
 
     elif choice == '4':
-        mark_completed()
+        eliminate()
+        input("\nPress Enter to continue...")
 
     elif choice == '5':
+        mark_completed()
+        input("\nPress Enter to continue...")
+
+    elif choice == '6':
         print("Exiting the Program...")
-        time.sleep(2)    
-        print("You are good to go !")
+        time.sleep(1)    
+        print("\nYou are good to go !")
         break
          
