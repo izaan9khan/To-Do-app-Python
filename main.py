@@ -77,7 +77,6 @@ def load_tasks():
 def clear_screen():
     os.system("cls")
 
-
 def edit_tasks():
     if not tasks:
         print("\nNothing to Edit!") 
@@ -106,6 +105,36 @@ def edit_tasks():
     print("\nTask edited and added successfully ! \n")
     view_tasks()
 
+def search_tasks():
+    search = input("\nSearch Tasks: ").strip()
+    if not search:
+        print("\nEnter a task!")
+        return
+
+    found = False
+    for item in tasks:
+        if search.lower() in item["task"].lower():
+            found = True
+            status = "✅" if item["Done"] else "❌"
+            print(item["task"], status)
+
+    if not found:
+        print("\n❌ No matching tasks found.")
+        choice = input("\nWould you like to add a new task? (Y/N): ").strip().lower()
+
+        if choice == "y":
+            new_task = input("\nEnter the new task: ").strip()
+
+            if new_task:
+                tasks.append({
+                    "task": new_task,
+                    "Done": False
+                })
+                save_tasks()
+                print("\n✅ Task added successfully!")
+            else:
+                print("\nTask cannot be empty.")
+
 
 load_tasks()
 while True:
@@ -114,13 +143,15 @@ while True:
     print("1. Add Task(s)")
     print("2. View task(s)")
     print("3. Edit Tasks")
-    print("4. Delete tasks")
-    print("5. Mark as completed")
-    print("6. Exit.")
+    print("4. Search tasks")
+    print("5. Delete tasks")
+    print("6. Mark as completed")
+    print("7. Exit.")
 
     choice = (input("\nEnter the Operator no: "))
-    if choice not in ['1', '2', '3', '4', '5']:
+    if choice not in ['1', '2', '3', '4', '5','6', '7']:
         print("\nERROR! Given attribute not found.")
+        print("\nPress Enter to continue...")
         continue      
 
     if choice == '1':
@@ -149,16 +180,19 @@ while True:
         edit_tasks()
         input("Press Enter to continue...")
 
-
     elif choice == '4':
+        search_tasks()
+        input("\nPress Enter to continue")
+
+    elif choice == '5':
         eliminate()
         input("\nPress Enter to continue...")
 
-    elif choice == '5':
+    elif choice == '6':
         mark_completed()
         input("\nPress Enter to continue...")
 
-    elif choice == '6':
+    elif choice == '7':
         print("Exiting the Program...")
         time.sleep(1)    
         print("\nYou are good to go !")

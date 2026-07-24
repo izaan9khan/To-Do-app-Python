@@ -6,7 +6,7 @@ This is my very first project,—a simple command-line To-Do application.
 
 Building this project helped me learn functions, dictionaries, file handling, JSON, Git, and GitHub.
 
-I used ChatGPT as a mentor to guide me through concepts and help me learn,understand and tryout new things rather than copying code.
+I used ChatGPT as a mentor to guide me through concepts and help me learn, understand and tryout new things rather than copying code.
 
 
 # Features
@@ -14,7 +14,9 @@ I used ChatGPT as a mentor to guide me through concepts and help me learn,unders
 - ✅ View tasks
 - ✅ Mark tasks as completed
 - ✅ Delete tasks
-- 💾 Automatically save tasks using JSON
+- ✅ Automatically save tasks using JSON
+- ✅ Editing Tasks
+- ✅ Searching Tasks
 
 # Technologies Used
 - Python
@@ -22,8 +24,6 @@ I used ChatGPT as a mentor to guide me through concepts and help me learn,unders
 - Git
 
 # Future Improvements
-- Edit
-- Search
 - Priorities
 - Due dates
 
